@@ -10,6 +10,23 @@
         Welcome!
         <strong>{{ boldmessage }}</strong><br>
         <a href="/game_center/about/">About</a><br>
+        
+       {% if categories %}
+            <ul>
+                {% for category in categories %}
+                <li>{{ category.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
+
+
+
+
+
+
+
         <img src="{% static "images/url.jpg" %}" alt="Picture of BMW" /> <!-- Images -->
     </body>
 </html>

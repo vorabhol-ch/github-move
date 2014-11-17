@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
-
+    likes = models.IntegerField(default=0)
     def __unicode__(self):
         return self.name
 
@@ -18,7 +18,7 @@ class Page(models.Model):
 
 class Game(models.Model):
     name = models.CharField(max_length=128,unique=True)
-	
+    
     def __unicode__(self):
         return self.name
 
@@ -28,4 +28,4 @@ class Score (models.Model):
 
     def __unicode__(self):
         return str(self.score)
-		
+        
