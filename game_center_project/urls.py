@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 from game_center import views
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -11,4 +12,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',views.index),url(r'^game_center/about/',views.about),
+    url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category')
 )
+#[\w] random word charactor   +same same 

@@ -13,8 +13,8 @@
         
        {% if categories %}
             <ul>
-                {% for category in categories %}
-                <li>{{ category.name }}</li>
+                {% for category in categories %}          
+                <li><a href="/category/{{ category.slug }}">{{ category.name }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
