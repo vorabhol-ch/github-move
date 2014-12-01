@@ -9,7 +9,9 @@
         <h1>Game Center</h1>
         Welcome!
         <strong>{{ boldmessage }}</strong><br>
-        <a href="/game_center/about/">About</a><br>
+        <a href="/about/">About</a>
+        <br><a href="/add_category/">Add a New Category</a><br />
+        <br><a href="/add_page/">Add a New Page</a><br />
         
        {% if categories %}
             <ul>
@@ -20,12 +22,6 @@
         {% else %}
             <strong>There are no categories present.</strong>
         {% endif %}
-
-
-
-
-
-
 
         <img src="{% static "images/url.jpg" %}" alt="Picture of BMW" /> <!-- Images -->
     </body>

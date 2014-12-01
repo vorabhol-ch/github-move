@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GameCenter</title>
+    </head>
+
+    <body>
+        <h1>{{ category_name }}</h1>
+        {% if category %}
+            {% if pages %}
+            <ul>
+                {% for page in pages %}
+                <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <strong>No pages currently in category.</strong>
+            {% endif %}
+        {% else %}
+            The specified category {{ category_name }} does not exist!
+        {% endif %}
+    </body>
+   
+
+
+    <body>
+        <h1>Add a Category</h1>
+
+        <form id="category_form" method="post" action="/add_category/">
+
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+
+            <input type="submit" name="submit" value="Create Category" />
+        </form>
+    </body>
+
+</html>
