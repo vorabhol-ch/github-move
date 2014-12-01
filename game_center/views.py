@@ -44,6 +44,7 @@ def category(request, category_name_slug):
         pass
 
     # Go render the response and return it to the client.
+    context_dict['category_name_slug']=category_name_slug
     return render(request, 'game_center/category.html', context_dict)
 
 def add_category(request):
@@ -71,7 +72,8 @@ def add_category(request):
     return render(request, 'game_center/add_category.html', {'form': form})
 
 def add_page(request, category_name_slug):
-
+   
+    context_dict = {}
     try:
             cat = Category.objects.get(slug=category_name_slug)
     except Category.DoesNotExist:
@@ -93,5 +95,6 @@ def add_page(request, category_name_slug):
                 form = PageForm()
 
             context_dict = {'form':form, 'category': cat}
-
+            
+      
     return render(request, 'game_center/add_page.html', context_dict)
