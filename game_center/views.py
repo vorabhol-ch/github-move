@@ -21,7 +21,7 @@ def category(request, category_name_slug):
 
     # Create a context dictionary which we can pass to the template rendering engine.
     context_dict = {}
-
+    context_dict['category_name_slug']=category_name_slug
     try:
         # Can we find a category name slug with the given name?
         # If we can't, the .get() method raises a DoesNotExist exception.
@@ -49,6 +49,7 @@ def category(request, category_name_slug):
 
 def add_category(request):
     # A HTTP POST?
+
     if request.method == 'POST':
         form = CategoryForm(request.POST)
 
@@ -72,15 +73,24 @@ def add_category(request):
     return render(request, 'game_center/add_category.html', {'form': form})
 
 def add_page(request, category_name_slug):
+    
+    
+    
+    
+
    
-    context_dict = {}
-    try:
+    
+    try: 
             cat = Category.objects.get(slug=category_name_slug)
+
     except Category.DoesNotExist:
-            cat = None
+           cat = None 
+           
 
     if request.method == 'POST':
+            
             form = PageForm(request.POST)
+            
             if form.is_valid():
                 if cat:
                     page = form.save(commit=False)
@@ -88,13 +98,11 @@ def add_page(request, category_name_slug):
                     page.views = 0
                     page.save()
                     # probably better to use a redirect here.
-                    return category(request, category_name_slug)
-                else:
-                    print form.errors
+                return category(request, category_name_slug)
             else:
-                form = PageForm()
-
-            context_dict = {'form':form, 'category': cat}
-            
-      
+                print form.errors
+    else:
+        form = PageForm()
+        
+    context_dict = {'form':form, 'category': cat}     
     return render(request, 'game_center/add_page.html', context_dict)
