@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+{% load staticfiles %} 
+<html>
+<head>
+  <title>HTML Canvas</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="{% static "js/drawlib04.js" %}" ></script>
+
+</head>
+<body>
+  
+  <canvas id="canvas" width="300" height="300" style="border:1px solid; "   style="z-index: 0;" >
+  
+
+  <script>
+  var x = 25;
+  var y = 250;
+  var x2 =30;
+  var y2 = 230;
+  var dx = 1.5;
+  var dy = -4;
+  var dx2 =3.2;
+  var dy2 = -7;
+  var bricks;
+  var NROWS;
+  var NCOLS;
+  var BRICKWIDTH;
+  var BRICKHEIGHT;
+  var PADDING;
+  var score=0;
+  var level=1;
+  var check1=0;
+  var check2=0;
+
+
+  function initbricks() {
+  
+    NROWS = 5;
+    NCOLS = 5;
+    BRICKWIDTH = (WIDTH/NCOLS) - 1;
+    BRICKHEIGHT = 15;
+    PADDING = 1;
+
+    bricks = new Array(NROWS);
+    for (i=0; i < NROWS; i++) {
+      bricks[i] = new Array(NCOLS);
+      for (j=0; j < NCOLS; j++) {
+        bricks[i][j] = 1;
+      }
+    }
+  }
+     
+  function levelup () {
+   
+     if (score == level*100 ) {
+     	     level+=1;
+     }  	
+  	
+  	
+  }
+  function draw() {
+    clear();
+    circle(x, y, 10,check1);
+    circle2(x2,y2,15,check2);
+    ctx.r
+    ctx.fillText("score: "+score,12,300);
+   
+
+    if (rightDown)
+      paddlex += 5;
+    else if (leftDown)
+      paddlex -= 5;
+    rect(paddlex, HEIGHT-paddleh, paddlew, paddleh);
+
+    //draw bricks
+    for (i=0; i < NROWS; i++) {
+      for (j=0; j < NCOLS; j++) {
+        if (bricks[i][j] == 1) {
+          rect((j * (BRICKWIDTH + PADDING)) + PADDING, 
+               (i * (BRICKHEIGHT + PADDING)) + PADDING,
+               BRICKWIDTH, BRICKHEIGHT);
+        }
+      }
+    }
+
+   
+    rowheight = BRICKHEIGHT + PADDING;
+    colwidth = BRICKWIDTH + PADDING;
+    row = Math.floor(y/rowheight);
+    col = Math.floor(x/colwidth);
+    //if so, reverse the ball and mark the brick as broken
+    if (y < NROWS * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1)
+     {
+      dy = -dy;      
+      bricks[row][col] = 0;
+      score+=10;
+      levelup();
+     
+
+    }
+     rowheight = BRICKHEIGHT + PADDING;
+    colwidth = BRICKWIDTH + PADDING;
+    row = Math.floor(y2/rowheight);
+    col = Math.floor(x2/colwidth);
+    
+   if (y2 < NROWS * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1)
+     {
+      
+      dy2= -dy2;
+      bricks[row][col] = 0;
+      score+=10;
+      levelup();
+     
+
+    }
+    
+ 
+    if (x + dx > WIDTH || x + dx < 0 )
+      dx = -dx;
+
+    if (y + dy < 0)
+      dy = -dy;
+      
+    else if (y + dy  > HEIGHT - paddleh) {
+    if (x > paddlex && x < paddlex + paddlew) {
+     
+      dx = 8 * ((x-(paddlex+paddlew/2))/paddlew);
+      dy = -dy;
+    }
+    else if (y + dy > HEIGHT) {
+      if (x > paddlex && x < paddlex + paddlew)
+        dy = -dy;
+      else{
+      check1=1;
+		x=0;
+		y=0;
+		dx=0;
+		dy=0;     
+      
+      if (check2==1) {
+        clearInterval(intervalId);
+        alert("end");
+      }    
+      }
+ }
+ }
+ 
+  x += level*dx;
+  y += level*dy;
+ 
+   
+    
+    if (x2 + dx2 > WIDTH || x2 + dx2 < 0 )
+      dx2 = -dx2;
+
+    if (y2 + dy2 < 0)
+     dy2 = -dy2;
+     
+    else if (y2 + 15 > HEIGHT) {
+      if (x2 > paddlex && x2 < paddlex + paddlew)
+        dy2 = -dy2;
+      else{
+      check2=1;
+        if (check1==1) {
+        x2=0;
+		y2=0;
+		dx2=0;
+		dy2=0;      
+        	
+        clearInterval(intervalId);
+        alert("end");
+        }  
+        }  
+    }
+     
+    x2 += level*0.45*dx2;
+    y2 += level*0.45*dy2;  
+      
+    
+    
+    
+    
+  }
+
+  init();
+  initbricks();
+  </script>
+</body>
+</html>

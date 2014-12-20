@@ -15,7 +15,8 @@ def index(request):
 
 def about(request):
     return render(request,'game_center/about.html')
-
+def game(request):
+    return render(request,'game_center/web05/index.html')
 
 def category(request, category_name_slug):
 

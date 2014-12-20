@@ -26,16 +26,19 @@ class Page(models.Model):
     def __unicode__(self):
         return self.title
 
-class Game(models.Model):
-    name = models.CharField(max_length=128,unique=True)
-    
-    def __unicode__(self):
-        return self.name
-
 class Score (models.Model):
     alias=models.CharField(max_length=128,unique=True)
     score=models.IntegerField(default=0)
 
     def __unicode__(self):
-        return str(self.score)
+        return  str(self.score)
+
+class Game(models.Model):
+    score=models.ForeignKey(Score)
+    name = models.CharField(max_length=128,unique=True)   
+    
+    def __unicode__(self):
+        return self.name
+
+
         
