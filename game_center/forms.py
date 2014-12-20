@@ -1,5 +1,5 @@
 from django import forms
-from game_center.models import Page, Category
+from game_center.models import Page, Category,Score
 
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the category name.")
@@ -33,3 +33,12 @@ class PageForm(forms.ModelForm):
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Page
+
+class ScoreForm(forms.ModelForm):
+    
+    score = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    alias = forms.CharField(max_length=128, help_text="Please enter your name .")
+    
+    class Meta:
+        # Provide an association between the ModelForm and a model
+        model = Score
