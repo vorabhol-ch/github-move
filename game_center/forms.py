@@ -35,10 +35,11 @@ class PageForm(forms.ModelForm):
         model = Page
 
 class ScoreForm(forms.ModelForm):
+     a=0;     
     
-    score = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    alias = forms.CharField(max_length=128, help_text="Please enter your name .")
-    
-    class Meta:
+     score = forms.IntegerField( initial=0,help_text="your score")
+     alias = forms.CharField(max_length=128, help_text="Please enter your name.")
+     
+     class Meta:
         # Provide an association between the ModelForm and a model
         model = Score

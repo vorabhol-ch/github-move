@@ -17,7 +17,27 @@ def index(request):
 def about(request):
     return render(request,'game_center/about.html')
 def game(request):
-    return render(request,'game_center/web05/index.html')
+    if request.method == 'POST':
+        form = ScoreForm(request.POST)
+
+        # Have we been provided with a valid form?
+        if form.is_valid():
+            # Save the new category to the database.
+            form.save(commit=True)
+
+            # Now call the index() view.
+            # The user will be shown the homepage.
+            return index(request)
+        else:
+            # The supplied form contained errors - just print them to the terminal.
+            print form.errors
+    else:
+        # If the request was not a POST, display the form to enter details.
+        form = ScoreForm()
+
+    return render(request,'game_center/web05/index.html',{'form': form})
+
+    
 
 def category(request, category_name_slug):
 
