@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from game_center.models import Category
 from game_center.models import Page
+from game_center.models import Score
+from game_center.models import Game
 from game_center.forms  import CategoryForm
 from game_center.forms  import PageForm
 from game_center.forms  import ScoreForm
@@ -9,9 +11,11 @@ from game_center.forms  import ScoreForm
 
 # Create your views here.
 def index(request):
-    category_list = Category.objects.order_by('-likes')[:5]
-    context_dict = {'categories': category_list}
-    context_dict['boldmessage'] = "Game Center Champion"
+    Score_list = Score.objects.order_by('-score')[:5]
+
+    
+    context_dict = {'score': Score_list}
+
     return render(request,'game_center/index.html', context_dict)
 
 def about(request):

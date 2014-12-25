@@ -9,15 +9,13 @@
         <h1>Game Center</h1>
         Welcome!
         <strong>{{ boldmessage }}</strong><br>
-        <a href="/about/">About</a>
-        <br><a href="/add_category/">Add a New Category</a><br />
-        <br><a href="/add_page/">Add a New Page</a><br />
+       
         <br><a href="/game/">Play Game</a><br />
         
-       {% if categories %}
+       {% if score %}
             <ul>
-                {% for category in categories %}          
-                <li><a href="/category/{{ category.slug }}">{{ category.name }}</a></li>
+                {% for Score in score %}          
+                <li>{{ Score }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
