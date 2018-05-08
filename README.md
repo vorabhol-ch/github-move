@@ -1,4 +1,4 @@
 # GameCenter Project
 
-This is a gamecenter for manging a game
+This is a gamecenter for managing a game build with django
 
